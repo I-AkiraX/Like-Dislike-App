@@ -11,7 +11,7 @@
         <item name="android:navigationBarColor">@color/bar_color</item>
         <item name="android:statusBarColor">@color/bar_color</item>
         <item name="buttonStyle">@drawable/button_background</item>
-
+        <item name="android:textColor">@color/text_color</item>
 
     </style>
 
@@ -20,7 +20,5 @@
 <!--
 TODO:
  positive negative button color
- button text color
- text color
  color background floating (dialog box) color
 -->

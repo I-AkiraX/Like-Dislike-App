@@ -9,5 +9,6 @@
     <color name="bar_color">#FBA191</color>
     <color name="button_stroke">#503F3C</color>
     <color name="btntext_color">@color/android_background</color>
+    <color name="text_color">@color/button_stroke</color>
 
 </resources>
