@@ -12,6 +12,8 @@
         <item name="android:statusBarColor">@color/bar_color</item>
         <item name="buttonStyle">@drawable/button_background</item>
         <item name="android:textColor">@color/text_color</item>
+        <item name="android:colorBackgroundFloating">@color/dialogbox_color</item>
+
     </style>
 
 </resources>

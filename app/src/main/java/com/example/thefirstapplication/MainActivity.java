@@ -2,6 +2,7 @@ package com.example.thefirstapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.res.Resources;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
@@ -17,9 +18,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.thefirstapplication.databinding.ActivityMainBinding;
+
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+
+    ActivityMainBinding binding;
 
     private Button btnStart;
     private Button btnStartAgain;
@@ -27,21 +32,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView txtMessage;
 
     /** TODO:
-         introduce binding
          condition for empty field
-         negative button toast text
+         negative positive toast text
      **/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
         Objects.requireNonNull(getSupportActionBar()).hide();
-        setContentView(R.layout.activity_main);
+        setContentView(binding.getRoot());
 
-        btnStart = (Button) this.findViewById(R.id.btnStart);
-        btnStartAgain = (Button) this.findViewById(R.id.btnStartAgain);
-        btnExit = (Button) this.findViewById(R.id.btnExit);
-        txtMessage = (TextView) this.findViewById(R.id.txtMessage);
+        btnStart = binding.btnStart;
+        btnStartAgain = binding.btnStartAgain;
+        btnExit = binding.btnExit;
+        txtMessage = binding.txtMessage;
 
         btnStart.setOnClickListener(this);
         btnStartAgain.setOnClickListener(v -> {
@@ -67,13 +72,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
             return handled;
         });
-        builder = new AlertDialog.Builder( this)
-                .setMessage("What would you like to talk about?")
+        builder = new AlertDialog.Builder( this,R.style.AlertDia);
+        builder.setMessage("What would you like to talk about?")
                 .setView(input)
-                .setPositiveButton("Continue", (dialog, which) -> keepTalking(input.getText().toString()))
+                .setPositiveButton("Continue", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        MainActivity.this.keepTalking(input.getText().toString());
+                    }
+                })
                 .setNegativeButton ( "Cancel", null);
-        AlertDialog alertDialog = builder.show();
-        alertDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+
+        //AlertDialog alertDialog = builder.show();
+        //alertDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+
+
+        CustomDialog customDialog = new CustomDialog(this);
+        customDialog.setPositiveButton("Continue", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                MainActivity.this.keepTalking(input.getText().toString());
+            }
+        });
+        AlertDialog alertDialog = customDialog.createCustomDialog();
+        alertDialog.show();
+
 
         startAgain();
     }
@@ -86,14 +109,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
     public void likeTopic(String t){
         Context context = getApplicationContext();
-        CharSequence message = "I'm happy that you like " + t + "!!";
+        CharSequence message = "I'm happy that you like " + t + "!! :)";
         int duration =Toast.LENGTH_LONG;
         Toast toast= Toast.makeText(context,message,duration);
         toast.show();
     }
     public void dislikeTopic(String t){
         Context context = getApplicationContext();
-        CharSequence message = "Are you serious?? You don't like " +t+ "!! I can't believe it!!";
+        CharSequence message = "So sad that you dislike " +t+ "!! :(";
         int duration =Toast.LENGTH_LONG;
         Toast toast= Toast.makeText(context,message,duration);
         toast.show();
