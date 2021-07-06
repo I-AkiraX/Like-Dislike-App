@@ -2,13 +2,12 @@ package com.example.thefirstapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.res.Resources;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
@@ -24,12 +23,14 @@ import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    ActivityMainBinding binding;
-
     private Button btnStart;
     private Button btnStartAgain;
     private Button btnExit;
     private TextView txtMessage;
+
+    AlertDialog inputAlertDialog;
+    CustomDialog inputCustomDialog;
+    ActivityMainBinding binding;
 
     /** TODO:
          condition for empty field
@@ -72,41 +73,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
             return handled;
         });
-        builder = new AlertDialog.Builder( this,R.style.AlertDia);
-        builder.setMessage("What would you like to talk about?")
-                .setView(input)
-                .setPositiveButton("Continue", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        MainActivity.this.keepTalking(input.getText().toString());
-                    }
-                })
-                .setNegativeButton ( "Cancel", null);
 
-        //AlertDialog alertDialog = builder.show();
-        //alertDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        inputCustomDialog = new CustomDialog(this);
+        inputCustomDialog.customise(() -> inputCustomDialog.setTitle("Enter the topic you want to talk about!"));
+        inputCustomDialog.setPositiveButton("Continue", MainActivity.this::keepTalking);
+        inputCustomDialog.setNegativeButton("Cancel", () -> {
 
-
-        CustomDialog customDialog = new CustomDialog(this);
-        customDialog.setPositiveButton("Continue", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                MainActivity.this.keepTalking(input.getText().toString());
-            }
         });
-        AlertDialog alertDialog = customDialog.createCustomDialog();
-        alertDialog.show();
-
+        inputAlertDialog = inputCustomDialog.createCustomDialog();
+        inputAlertDialog.show();
 
         startAgain();
     }
-    public void keepTalking(final String t){
-        AlertDialog secondDialog = new AlertDialog.Builder(this)
-                .setMessage("Do you like " + t +"?")
-                .setPositiveButton("Yes", (dialog, which) -> likeTopic(t))
-                .setNegativeButton("No", (dialog, which) -> dislikeTopic(t))
-                .show();
+    public void keepTalking(){
+        String t = inputCustomDialog.getInput().getText().toString();
+
+        CustomDialog finalCustomDialog = new CustomDialog(this);
+        finalCustomDialog.customise(() -> {
+            finalCustomDialog.binding.inputText.setVisibility(View.GONE);
+            finalCustomDialog.setTitle("Do you like " + t + " ?");
+        });
+        finalCustomDialog.setPositiveButton("Yes", () -> likeTopic(t));
+        finalCustomDialog.setNegativeButton("No", () -> dislikeTopic(t));
+        finalCustomDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        finalCustomDialog.getWindow().setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        AlertDialog finalAlertDialog = finalCustomDialog.createCustomDialog();
+        finalAlertDialog.show();
     }
+
     public void likeTopic(String t){
         Context context = getApplicationContext();
         CharSequence message = "I'm happy that you like " + t + "!! :)";

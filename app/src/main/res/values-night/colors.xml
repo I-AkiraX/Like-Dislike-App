@@ -11,5 +11,7 @@
     <color name="btntext_color">@color/android_background</color>
     <color name="text_color">@color/button_stroke</color>
     <color name="dialogbox_color">#FFFFFF</color>
+    <color name="alert_btn_color">#503F3C</color>
+    <color name="transparent">#00000000</color>
 
 </resources>

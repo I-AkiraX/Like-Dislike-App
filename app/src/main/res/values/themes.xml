@@ -15,17 +15,8 @@
 
     </style>
 
-    <style name="AlertDia" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">
-        <item name="background">@color/dialogbox_color</item>
-        <item name="titleTextColor">#FF0000</item>
-        <item name="android:layout_gravity">center</item>
-        <item name="android:layout_height">100dp</item>
+    <style name="AlertDia" parent="Theme.AppCompat">
+        <item name="background">@color/transparent</item>
     </style>
 
 </resources>
-
-<!--
-TODO:
- positive negative positive color
- color background floating (dialog box) color
--->
