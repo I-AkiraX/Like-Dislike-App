@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">The First Application</string>
+    <string name="app_name" translatable="false">The First Application</string>
 </resources>
 
 <!--

@@ -72,9 +72,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             return handled;
         });
 
-        //Context contextMain = this;
-        //contextMain.setTheme(R.style.AlertDia);
-
         inputCustomDialog = new CustomDialog(new ContextThemeWrapper(this, R.style.AlertDia));
 
         inputCustomDialog.customise(() -> inputCustomDialog.setTitle("Enter the topic you want to talk about!"));
@@ -90,7 +87,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void keepTalking(){
         String t = inputCustomDialog.getInput().getText().toString();
 
-        CustomDialog finalCustomDialog = new CustomDialog(this);
+        CustomDialog finalCustomDialog = new CustomDialog(new ContextThemeWrapper(this,R.style.AlertDia));
         finalCustomDialog.customise(() -> {
             finalCustomDialog.binding.inputText.setVisibility(View.GONE);
             finalCustomDialog.setTitle("Do you like " + t + " ?");
