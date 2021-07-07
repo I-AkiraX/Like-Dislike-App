@@ -15,8 +15,11 @@
 
     </style>
 
-    <style name="AlertDia" parent="Theme.AppCompat">
-        <item name="background">@color/transparent</item>
+    <style name="AlertDia" parent="AppTheme">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowNoTitle">true</item>
+
     </style>
 
 </resources>

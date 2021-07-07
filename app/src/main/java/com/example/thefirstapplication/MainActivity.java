@@ -7,6 +7,8 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.view.ContextThemeWrapper;
+
 import android.content.Context;
 import android.view.View;
 import android.view.WindowManager;
@@ -32,10 +34,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     CustomDialog inputCustomDialog;
     ActivityMainBinding binding;
 
-    /** TODO:
-         condition for empty field
-         negative positive toast text
-     **/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +72,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             return handled;
         });
 
-        inputCustomDialog = new CustomDialog(this);
+        //Context contextMain = this;
+        //contextMain.setTheme(R.style.AlertDia);
+
+        inputCustomDialog = new CustomDialog(new ContextThemeWrapper(this, R.style.AlertDia));
+
         inputCustomDialog.customise(() -> inputCustomDialog.setTitle("Enter the topic you want to talk about!"));
         inputCustomDialog.setPositiveButton("Continue", MainActivity.this::keepTalking);
         inputCustomDialog.setNegativeButton("Cancel", () -> {
@@ -95,7 +97,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
         finalCustomDialog.setPositiveButton("Yes", () -> likeTopic(t));
         finalCustomDialog.setNegativeButton("No", () -> dislikeTopic(t));
-        finalCustomDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         finalCustomDialog.getWindow().setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
         AlertDialog finalAlertDialog = finalCustomDialog.createCustomDialog();
         finalAlertDialog.show();

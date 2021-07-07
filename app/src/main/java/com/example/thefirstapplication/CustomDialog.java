@@ -50,12 +50,23 @@ public class CustomDialog extends AlertDialog {
         binding.positive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                performPositiveButtonClick(runnable);
+                if((!getInput().getText().toString().isEmpty()) || (input.getVisibility()==View.GONE)) {
+                    performPositiveButtonClick(runnable);
+                }
+                else{
+                    Context context1 = assignContext(context);
+                    context1.setTheme(R.style.AlertDia);
+                    Toast.makeText(context1,"ERROR: Empty field!",Toast.LENGTH_SHORT).show();
+                }
             }
 
             private void performPositiveButtonClick(Runnable runnable){
                 alertDialog.cancel();
                 runnable.run();
+            }
+
+            private Context assignContext(Context c){
+                return c;
             }
         });
     }
