@@ -40,7 +40,7 @@ public class CustomDialog extends AlertDialog {
         runnable.run();
     }
 
-    public void setTitle(String title){
+    public void setCustomTitle(String title){
         binding.alertBoxTitle.setText(title);
     }
 
@@ -56,7 +56,7 @@ public class CustomDialog extends AlertDialog {
                 else{
                     Context context1 = assignContext(context);
                     context1.setTheme(R.style.AlertDia);
-                    Toast.makeText(context1,"ERROR: Empty field!",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context1, R.string.error_msg,Toast.LENGTH_SHORT).show();
                 }
             }
 

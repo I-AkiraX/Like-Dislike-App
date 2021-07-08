@@ -1,8 +1,22 @@
 <resources>
-    <string name="app_name" translatable="false">The First Application</string>
-</resources>
 
-<!--
-    TODO:
-        add hindi language
-        -->
+    <string name="app_name">Like Dislike App</string>
+    <string name="enter_topic">Enter the topic you want to talk about!</string>
+    <string name="do_you_like">Do you like %s?</string>
+    <string name="im_happy">I\'m happy that you like %s! 😁</string>
+    <string name="sad_you_dislike">So sad that you dislike %s. ☹️</string>
+    <string name="continue_btn">Continue</string>
+    <string name="cancel_btn">Cancel</string>
+    <string name="yes_btn">Yes</string>
+    <string name="no_btn">No</string>
+    <string name="error_msg">ERROR: Empty field!</string>
+    <string name="enter_here">enter here…</string>
+    <string name="negative">Negative</string>
+    <string name="positive">Positive</string>
+    <string name="title">Title</string>
+    <string name="to_begin_press_start">To begin press \"start\"</string>
+    <string name="start_btn">Start</string>
+    <string name="start_again_btn">Start Again</string>
+    <string name="exit_btn">Exit</string>
+
+</resources>

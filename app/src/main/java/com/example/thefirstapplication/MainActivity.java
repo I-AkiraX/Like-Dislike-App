@@ -1,15 +1,7 @@
 package com.example.thefirstapplication;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.os.Bundle;
-
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.view.ContextThemeWrapper;
-
 import android.content.Context;
+import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
@@ -18,6 +10,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.ContextThemeWrapper;
 
 import com.example.thefirstapplication.databinding.ActivityMainBinding;
 
@@ -59,7 +55,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnExit.setVisibility(View.GONE);
     }
     public void onClick(View v){
-        AlertDialog.Builder builder;
         final EditText input = new EditText(this);
         input.setMaxLines(1);
         input.setImeOptions(EditorInfo.IME_ACTION_DONE);
@@ -74,9 +69,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         inputCustomDialog = new CustomDialog(new ContextThemeWrapper(this, R.style.AlertDia));
 
-        inputCustomDialog.customise(() -> inputCustomDialog.setTitle("Enter the topic you want to talk about!"));
-        inputCustomDialog.setPositiveButton("Continue", MainActivity.this::keepTalking);
-        inputCustomDialog.setNegativeButton("Cancel", () -> {
+        inputCustomDialog.customise(() -> inputCustomDialog.setCustomTitle(getString(R.string.enter_topic)));
+        inputCustomDialog.setPositiveButton(getString(R.string.continue_btn), MainActivity.this::keepTalking);
+        inputCustomDialog.setNegativeButton(getString(R.string.cancel_btn), () -> {
 
         });
         inputAlertDialog = inputCustomDialog.createCustomDialog();
@@ -90,10 +85,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         CustomDialog finalCustomDialog = new CustomDialog(new ContextThemeWrapper(this,R.style.AlertDia));
         finalCustomDialog.customise(() -> {
             finalCustomDialog.binding.inputText.setVisibility(View.GONE);
-            finalCustomDialog.setTitle("Do you like " + t + " ?");
+            finalCustomDialog.setCustomTitle(String.format(getString(R.string.do_you_like),t));
         });
-        finalCustomDialog.setPositiveButton("Yes", () -> likeTopic(t));
-        finalCustomDialog.setNegativeButton("No", () -> dislikeTopic(t));
+        finalCustomDialog.setPositiveButton(getString(R.string.yes_btn), () -> likeTopic(t));
+        finalCustomDialog.setNegativeButton(getString(R.string.no_btn), () -> dislikeTopic(t));
         finalCustomDialog.getWindow().setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
         AlertDialog finalAlertDialog = finalCustomDialog.createCustomDialog();
         finalAlertDialog.show();
@@ -101,14 +96,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public void likeTopic(String t){
         Context context = getApplicationContext();
-        CharSequence message = "I'm happy that you like " + t + "!! :)";
+        CharSequence message =  String.format(getString(R.string.im_happy),t);
         int duration =Toast.LENGTH_LONG;
         Toast toast= Toast.makeText(context,message,duration);
         toast.show();
     }
     public void dislikeTopic(String t){
         Context context = getApplicationContext();
-        CharSequence message = "So sad that you dislike " +t+ "!! :(";
+        CharSequence message = String.format(getString(R.string.sad_you_dislike),t);
         int duration =Toast.LENGTH_LONG;
         Toast toast= Toast.makeText(context,message,duration);
         toast.show();
