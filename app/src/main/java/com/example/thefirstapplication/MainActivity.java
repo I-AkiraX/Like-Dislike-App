@@ -77,7 +77,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         inputAlertDialog = inputCustomDialog.createCustomDialog();
         inputAlertDialog.show();
 
-        startAgain();
     }
     public void keepTalking(){
         String t = inputCustomDialog.getInput().getText().toString();
@@ -100,6 +99,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         int duration =Toast.LENGTH_LONG;
         Toast toast= Toast.makeText(context,message,duration);
         toast.show();
+        startAgain();
     }
     public void dislikeTopic(String t){
         Context context = getApplicationContext();
@@ -107,6 +107,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         int duration =Toast.LENGTH_LONG;
         Toast toast= Toast.makeText(context,message,duration);
         toast.show();
+        startAgain();
     }
     public void startAgain(){
         btnStart.setVisibility(View.GONE);

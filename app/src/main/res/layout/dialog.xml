@@ -5,7 +5,8 @@
     android:id="@+id/dialogBox"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/alert_box">
+    android:background="@drawable/alert_box"
+    android:animateLayoutChanges="true">
 
     <Button
         android:id="@+id/negative"
